@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<esri:schema xmlns:esri="http://www.w3.org/2001/XMLSchema">
+    <!-- POINT -->    
+    <esri:complexType name="Point">
+        <esri:sequence>
+            <esri:element name="X" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="Y" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="M" type="xs:float" minOccurs="0" maxOccurs="1"/>
+            <esri:element name="Z" type="xs:float" minOccurs="0" maxOccurs="1"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- ARRAY OF POINT -->
+    <esri:complexType name="ArrayofPoint">
+        <esri:sequence>
+            <esri:element name="Point" type="esri:Point" maxOccurs="unbounded"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- LINE -->
+    <esri:complexType name="Line">
+        <esri:sequence>
+            <esri:element name="FromPoint" type="esri:Point" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="ToPoint" type="esri:Point" minOccurs="1" maxOccurs="1"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- CircularArc -->
+    <esri:complexType name="CircularArc">
+        <esri:sequence>
+            <esri:element name="FromPoint" type="esri:Point" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="ToPoint" type="esri:Point" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="CenterPoint" type="esri:Point" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="IsCounterClockwise" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="IsMinor" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="IsLine" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- SEGMENT -->
+    <esri:complexType name="Segment">
+        <esri:sequence>
+            <choice>
+                <esri:element name="Line" type="esri:Line" minOccurs="1" maxOccurs="1"/>
+                <esri:element name="Line" type="esri:CircularArc" minOccurs="1" maxOccurs="1"/>
+            </choice>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- SEGMENT ARRAY -->
+    <esri:complexType name="ArrayofSegment">
+        <esri:sequence>
+            <esri:element name="Segment" type="esri:Segment" maxOccurs="unbounded"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- RING -->
+    <esri:complexType name="Ring">
+        <esri:sequence>
+            <choice>
+                <esri:element name="SegmentArray" type="esri:ArrayofSegment" minOccurs="1" maxOccurs="1"/>
+                <esri:element name="PointArray" type="esri:ArrayofPoint" minOccurs="1" maxOccurs="1"/>
+            </choice>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- ENVELOPE -->
+    <esri:complexType name="Envelope">
+        <esri:sequence>
+            <esri:element name="XMin" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="YMin" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="XMax" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="YMax" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="ZMin" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="ZMax" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="MMin" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="MMax" type="xs:float" minOccurs="1" maxOccurs="1"/>
+        </esri:sequence>
+    </esri:complexType>
+    <!-- Polygon -->
+    <esri:complexType name="Polygon">
+        <esri:sequence>
+            <esri:element name="HasID" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="HasZ" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="HasM" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="Extent" type="esri:Envelope" minOccurs="1" maxOccurs="1"/>
+            <esri:element name="RingArray" type="esri:ArrayofRing" minOccurs="1" maxOccurs="1"/>
+        </esri:sequence>
+    </esri:complexType>
+</esri:schema>
+<xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!-- VALUE -->
+    <xs:complexType name="Value">
+        <xs:sequence>
+            <xs:element name="value" type="esri:Polygon" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>    
+</xs:schema>
